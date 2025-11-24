@@ -35,7 +35,11 @@ function setup() {
 function draw() {
   background(0);
 
+  noStroke();
+  glow( color(255, 204, 0), 8 );
+  
   translate( -0.25 * windowWidth / 2, -0.25 * windowHeight );
+
   textSize(fontSize * 1.5);
   textFont(dotMatrixBold);
   textAlign(LEFT, CENTER);
@@ -52,4 +56,9 @@ function draw() {
     translate(0,fontSize*2.2);
     travelData[i].display();
   }
+}
+
+function glow(glowColour, blurriness) {
+  drawingContext.shadowBlur = blurriness;
+  drawingContext.shadowColor = glowColour;
 }
