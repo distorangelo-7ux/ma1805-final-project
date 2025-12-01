@@ -38,7 +38,7 @@ function draw() {
   noStroke();
   glow( color(255, 204, 0), 8 );
   
-  translate( -0.25 * windowWidth / 2, -0.25 * windowHeight );
+  translate( 3 * (-0.25 * windowWidth / 2 ), -0.25 * windowHeight );
 
   textSize(fontSize * 1.5);
   textFont(dotMatrixBold);
