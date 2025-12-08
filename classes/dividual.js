@@ -1,7 +1,20 @@
 class Dividual {
-    constructor(origin, destination, time) {
+    constructor(origin, platform, time) {
         this.origin = origin;
-        this.destination = destination;
+
+        this.platform = platform;
+        let platformWidthIndex;
+    
+        platformWidthIndex = 2;
+        if (platform < 3) platformWidthIndex = 1;
+        if (platform == 0) platformWidthIndex = 0;
+
+
+        this.destination = createVector(
+            recordedWidths[platformWidthIndex] * (mapScale) + originX, 
+            recordedHeights[platform] * (mapScale) + originY
+        )
+
         this.stepsTaken = 0;
 
         this.steps =  time * 60;
@@ -12,9 +25,11 @@ class Dividual {
         )
     }
 
-    walk() {
+    walk( translateX ) {
+        this.translateX = translateX;
         fill('#ff0000ff');
-        circle(this.origin.x, this.origin.y, 4);
+        circle(this.origin.x + translateX, this.origin.y, 4);
+
         if (this.stepsTaken < this.steps) {
             this.origin.x += this.diff.x;
             this.origin.y += this.diff.y;
