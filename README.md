@@ -1,10 +1,10 @@
 # ma1805-final-project
 Angelo Distor's final project for Royal Holloway's MA1805 module.
 
-[Github Repo.](https://github.com/distorangelo-7ux/ma1805-final-project) [Live site]()
+[Github Repo.](https://github.com/distorangelo-7ux/ma1805-final-project) [Live site](https://distorangelo-7ux.github.io/ma1805-final-project/)
 
 # TRAVELLING. TRACKING.
-An interactive project that places the viewer in the position of a London train station. Using the latest technologies, they must keep track of the train departures while scanning the top-down surveillance feed of the station for security. 
+An interactive project that places the viewer in the position of a London train station. Using the latest technologies, they must keep track of the train departures while using their face to scan the top-down surveillance feed of the station for security. 
 
 A webcam is required for this project to control the surveillance camera. In reality, who's tracking who? Can the task really be safe when the data from the webcam is continuously being feed to the system? 
 
