@@ -1,16 +1,16 @@
+// Facial capture code taken from the GIT coding-for-the-arts repository: 06-media-face-like
 class Controller {
     constructor() {
-        this.squarePos = createVector( 
-            (windowWidth / 2 ) + 160,
-            (windowHeight / 2) - 120);
+        createCanvas(windowWidth, windowHeight);
+
         this.initial = createVector(0,0);
         this.distance = createVector(0,0);
 
-        createCanvas(windowWidth, windowHeight);
         //web cam capture
         this.capture = createCapture(VIDEO);
         this.capture.size(640, 480);
         this.capture.hide();
+
         //setup face tracker
         this.ctracker = new clm.tracker();
         this.ctracker.init(pModel);
@@ -19,15 +19,14 @@ class Controller {
 
     draw() {
         //draw the captured video on a screen with the image filter
-        //image(capture, (windowWidth / 2 ) - 320 , (windowHeight / 2) - 240, 640, 480);
+        tint(255, 75);
+        image(this.capture, (windowWidth / 2 ) - windowWidth / 2 , (windowHeight / 2) - windowHeight / 2, windowWidth, windowHeight);
 
+        tint(255, 255);
         this.positions = this.ctracker.getCurrentPosition();
 
         // Check the availability of web cam tracking
         if (this.positions.length) {
-            //for (let i = 0; i < positions.length; i++) {
-            //fill(255, 255, 255, 180);
-            //if(i == 62) text(i, positions[i][0], positions[i][1])}
 
             // point 60 = mouth / 62 = nose
             this.facePoint = createVector(
@@ -35,24 +34,11 @@ class Controller {
                 this.positions[62][1]
             );
 
+            // Initial point is set-up to calculate off-set and distance needed to travel
             if (!this.initialPosCreated) {
                 this.initial.x = this.facePoint.x;
                 this.initial.y = this.facePoint.y;
                 this.initialPosCreated = true;
-            }
-
-            if (this.squarePos.x < windowWidth && this.squarePos.x > 0) {
-                this.squarePos.x += this.distance.x;
-            } else {
-                if (this.squarePos.x >= windowWidth) this.squarePos.x -= 20;
-                if (this.squarePos.x <= 0) this.squarePos.x += 20;
-            }
-
-            if (this.squarePos.y < windowHeight && this.squarePos.y > 0) {
-                this.squarePos.y += this.distance.y;
-            } else {
-                if (this.squarePos.y >= windowHeight) this.squarePos.y -= 20;
-                if (this.squarePos.y <= 0) this.squarePos.y += 20;
             }
         }
 
@@ -62,11 +48,13 @@ class Controller {
     }
 
     faceController() {
+        // Distance = current point - initial point, multiplied for easier navigation
         this.distance = createVector(
         int(this.facePoint.x - this.initial.x) * 0.125,
         int(this.facePoint.y - this.initial.y) * -0.25
         )
 
+        // Purely aesthetic
         textSize(25);
         fill(255)
         text('[TRACKING FACE...]', windowWidth / 2, 0.8* (windowHeight / 2) );
@@ -83,6 +71,7 @@ class Controller {
             12);
     }
 
+    // For other functions also affected by distance travelled
     returnDistance() {
         return this.distance;
     }

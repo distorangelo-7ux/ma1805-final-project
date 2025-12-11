@@ -1,4 +1,4 @@
-// The final project uses many timers, so might as well have each timed effect be an instance of one object with the same methods.
+// Timer borrowed from the final project of the mini portfolio piece
 
 class Timer {
   constructor(timeInterval) {

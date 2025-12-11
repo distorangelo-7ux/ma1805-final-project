@@ -17,17 +17,22 @@ class Station {
     }
 
     createDividuals() {
+        // 250 times: Create an individual with:
         for (this.i = 0; this.i < 250 ; this.i++) {
         this.dividual11.push(
             new Dividual( 
+            // A random starting point
             createVector(
                 ( 255 + random(0, 46) ) * (this.mapScale) + this.originX,
                 ( 144 + random(0, 295) ) * (this.mapScale) + this.originY
             ),
+            // A random platform
                 int(random(3,20))
             ,
+            // A random time (in seconds)
                 random(5, 40) )
             )
+            // Then push to array of individuals
         }
     }
 
@@ -40,15 +45,18 @@ class Station {
     }
 
     clearDividuals() {
+        // Run through list of individuals and remove
         for (this.i = 0; this.i < this.dividual11.length; this.i++) {
             this.dividual11.splice(this.i, 1);
         }
     }
 
     walkDividuals() {
+        // For every invidiaul, walk while passing controller offset to the function so the objects will move as well
         for (this.i = 0; this.i < this.dividual11.length; this.i++) {
         this.dividual11[this.i].walk( this.translateX , this.translateY );
 
+        // If no longer walking, delete
         if (!this.dividual11[this.i].walk()) {
         this.dividual11.splice(this.i, 1);
         }
@@ -65,6 +73,7 @@ class Station {
             map.height * this.mapScale
             );
         
+        // This was mostly for debugging and figuring out the positioning of each platform
         for (this.i = 0; this.i < this.recordedHeights.length; this.i++) {
             this.platformWidthIndex;
             
@@ -84,6 +93,7 @@ class Station {
         this.magnitudeY = this.faceController.distance.y;
         
         if ( 
+            // Defining confines of the distance that can be travelled in X-axis
             (this.translateX > -map.width * this.mapScale && this.magnitudeX < 0) ||
             (this.translateX < map.width * this.mapScale && this.magnitudeX > 0) ) {
             this.originX += this.magnitudeX;
@@ -91,6 +101,7 @@ class Station {
         }
 
         if ( 
+            // Defining confines of the distance that can be travelled in Y-axis
             (this.translateY > -map.height * this.mapScale && this.magnitudeY < 0) ||
             (this.translateY < map.height * this.mapScale && this.magnitudeY > 0) ) {
             this.originY += this.magnitudeY;
