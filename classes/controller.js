@@ -1,4 +1,10 @@
 // Facial capture code taken from the GIT coding-for-the-arts repository: 06-media-face-like
+
+/*
+- Face tracking library: https://github.com/auduno/clmtrackr
+- p5js + clmtracker.js: https://gist.github.com/lmccart/2273a047874939ad8ad1
+*/
+
 class Controller {
     constructor() {
         createCanvas(windowWidth, windowHeight);
