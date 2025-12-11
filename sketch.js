@@ -1,27 +1,22 @@
-let dotMatrixFont;
-let fontSize;
+let displayBoard = true;
+let surveillanceMap = false;
 
-let intHour = 0;
-let intMinutes = 0;
-
-let stringHour;
-let stringMinutes;
-
-let destinationName = 'Guildford'
-let stringArrival = '11:30'
-let isDelayed = false;
-let intDelay = '11:32'
-
-let intPlatform = 15;
 let travelData = [];
 
 function preload() {
   dotMatrixFont = loadFont('Dotrice-Condensed.otf');
-  dotMatrixBold = loadFont('Dotrice-Bold-Condensed.otf')
+  dotMatrixBold = loadFont('Dotrice-Bold-Condensed.otf');
+  map = loadImage('assets/waterloo_map.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  stationData();
+
+  stationRenderer = new Station();
+  switchTimer = new Timer(1000);
+  frameRate(60);
+
   fontSize = 25;
   travelData.push(new Column(fontSize, '11:27', 'Strawberry Hill', false, '', true,'5', true, '11:30'));
 
@@ -34,12 +29,33 @@ function setup() {
 
 function draw() {
   background(0);
+  glow( color(255, 255, 255), 0 );
 
+    switchTimer.timerLoop();
+
+    if (switchTimer.timerAction(4)) {
+      surveillanceMap = true;
+      displayBoard = false;
+    }
+
+    if (switchTimer.timerAction(8)) {
+      surveillanceMap = false;
+      stationRenderer.clearDividuals();
+      stationRenderer.createDividuals();
+      displayBoard = true;
+      switchTimer.timerReset();
+    }
+
+  if (surveillanceMap) stationRenderer.draw();
+  if (displayBoard) displayUI();
+}
+
+function displayUI() {
+  translate( 1 * (-0.25 * windowWidth / 2 ), -0.25 * windowHeight );
   noStroke();
   glow( color(255, 204, 0), 8 );
+  fill(241, 182, 18, 255);
   
-  translate( 3 * (-0.25 * windowWidth / 2 ), -0.25 * windowHeight );
-
   textSize(fontSize * 1.5);
   textFont(dotMatrixBold);
   textAlign(LEFT, CENTER);
@@ -61,4 +77,14 @@ function draw() {
 function glow(glowColour, blurriness) {
   drawingContext.shadowBlur = blurriness;
   drawingContext.shadowColor = glowColour;
+}
+
+function stationData() {
+  recordedWidths = [156, 183, 222];
+  recordedHeights = [104, 128, 143, 163, 178, 197, 212, 232, 247, 276, 291, 312, 327, 345, 360, 380, 395, 415, 430, 450];
+
+  mapScale = 4;
+
+  originX = (windowWidth / 2) - 0.5 * (map.width) - 750;
+  originY = (windowHeight / 2) - 0.5 * (map.height) -750;
 }

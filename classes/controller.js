@@ -63,13 +63,24 @@ class Controller {
 
     faceController() {
         this.distance = createVector(
-        int(this.facePoint.x - this.initial.x) * -0.125,
-        int(this.facePoint.y - this.initial.y) * 0.25
+        int(this.facePoint.x - this.initial.x) * 0.125,
+        int(this.facePoint.y - this.initial.y) * -0.25
         )
 
-        text(this.distance.x + ', ' + this.distance.y, 100, 100);
+        textSize(25);
+        fill(255)
+        text('[TRACKING FACE...]', windowWidth / 2, 0.8* (windowHeight / 2) );
+        text(this.distance.x + ', ' + this.distance.y, windowWidth / 2,  windowHeight / 2);
+
+        square(
+            (windowWidth / 2) - 3,  
+            (windowHeight / 2) * 1.25, 
+            6);
         
-        square(this.squarePos.x, this.squarePos.y, 25);
+        square(
+            (windowWidth / 2) - 6 - (this.distance.x) * 3,  
+            (windowHeight / 2) * 1.25 - (this.distance.y) * 3, 
+            12);
     }
 
     returnDistance() {
